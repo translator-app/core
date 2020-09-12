@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { translator, RawTranslationLibrary, RawTranslationRegistry } from '@translator/core';
+import { translator, RawTranslationLibrary, RawTranslationRegistry } from '@translator-app/core';
 
 type ProviderProps = {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ type ProviderProps = {
 type ProviderValue = {
   language: string;
   version: number;
-  translate: (key: string, data?: any) => string;
+  translate: (key: string, values?: any) => string;
 };
 
 const TranslatorContext = React.createContext<ProviderValue>({} as ProviderValue);
@@ -37,9 +37,13 @@ export function TranslatorProvider(props: ProviderProps) {
   let [registryVersion, dispatchVersionChange] = React.useReducer(versionReducer, { version: 0 });
 
   React.useEffect(() => {
-    if (!translatorInstance.hasLanguage(language)) {
+    if (getTranslationRegistry && !translatorInstance.hasLanguage(language)) {
       let result = getTranslationRegistry(language);
       const update = (newRegistry) => {
+        if (!newRegistry) {
+          return;
+        }
+        
         translatorInstance.addLanguage(language, newRegistry);
         dispatchVersionChange({ type: 'increment' });
       };
