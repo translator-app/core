@@ -1,6 +1,6 @@
 {
-  "name": "@translator/react",
-  "version": "0.0.5",
+  "name": "@translator-app/react",
+  "version": "0.0.6",
   "main": "index.js",
   "license": "MIT",
   "publishConfig": {
@@ -10,7 +10,7 @@
     "compile": "tsc"
   },
   "dependencies": {
-    "@translator/core": "^0.0.5"
+    "@translator-app/core": "^0.0.6"
   },
   "devDependencies": {
     "@testing-library/react": "^11.0.2",
@@ -18,5 +18,5 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
-  "gitHead": "bfaa7ed3c6050da54cfad79d5b6f0755632f2728"
+  "gitHead": "9d9765af269b5861f3b1401c62b38461c7f52d34"
 }
