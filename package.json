@@ -5,7 +5,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "compile": "lerna run compile",
+    "prepublishOnly": "yarn compile",
+    "release": "lerna publish"
   },
   "workspaces": [
     "packages/*"
@@ -17,6 +20,7 @@
     "@types/jest": "^26.0.13",
     "babel-jest": "^26.3.0",
     "jest": "^26.4.2",
+    "lerna": "^3.22.1",
     "typescript": "^4.0.2"
   }
 }

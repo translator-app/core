@@ -2,5 +2,15 @@
   "name": "@translator/react",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "@translator/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.49",
+    "react": "^16.13.1"
+  }
 }

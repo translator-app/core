@@ -13,25 +13,52 @@ export interface TranslatorOptions {
 }
 
 export interface TranslatorInstance {
-  translate: ({ key, values, language }: { key: string; values?: any; language?: string }) => string;
+  translate: ({
+    key,
+    values,
+    language,
+  }: {
+    key: string;
+    values?: any;
+    language?: string;
+  }) => {
+    value: string;
+    isTranslated: boolean;
+  };
   addLanguage: (language: string, registry: RawTranslationRegistry) => void;
+  hasLanguage: (language: string) => boolean;
 }
 
 export function translator(opts: TranslatorOptions): TranslatorInstance {
   let library: TranslationLibrary = {};
   let fallbackLanguage = opts.fallbackLanguage;
 
+  const hasLanguage = (language: string) => {
+    return !!library[language];
+  };
+
   const addLanguage = (language: string, registry: RawTranslationRegistry) => {
     library[language] = flattenObject(registry);
   };
 
   const translate = ({ key, values = {}, language = fallbackLanguage }) => {
-    let registry = library[language] || library[fallbackLanguage];
-    if (registry && typeof registry[key] === 'string') {
-      return format(registry[key], values);
+    let registry = library[language];
+    let isTranslated = !!registry;
+    if (!isTranslated) {
+      registry = library[fallbackLanguage];
     }
 
-    return key;
+    if (registry && typeof registry[key] === 'string') {
+      return {
+        value: format(registry[key], values),
+        isTranslated,
+      };
+    }
+
+    return {
+      value: key,
+      isTranslated: false,
+    };
   };
 
   if (opts.library) {
@@ -43,5 +70,6 @@ export function translator(opts: TranslatorOptions): TranslatorInstance {
   return {
     translate,
     addLanguage,
+    hasLanguage,
   };
 }

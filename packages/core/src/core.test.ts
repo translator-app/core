@@ -22,7 +22,7 @@ test('Basic core test', () => {
         name: 'Mark',
       },
     })
-  ).toBe('Hello Mark, how are you?');
+  ).toEqual({ value: 'Hello Mark, how are you?', isTranslated: true });
 
   expect(
     translatorInstance.translate({
@@ -32,7 +32,7 @@ test('Basic core test', () => {
         name: 'Mark',
       },
     })
-  ).toBe('Hello Mark, how are you?');
+  ).toEqual({ value: 'Hello Mark, how are you?', isTranslated: true });
 
   expect(
     translatorInstance.translate({
@@ -42,7 +42,7 @@ test('Basic core test', () => {
         name: 'Mark',
       },
     })
-  ).toBe('Hallo Mark, hoe gaat het?');
+  ).toEqual({ value: 'Hallo Mark, hoe gaat het?', isTranslated: true });
 });
 
 test('Add languages manually test', () => {
@@ -58,14 +58,14 @@ test('Add languages manually test', () => {
     translatorInstance.translate({
       key: 'footer',
     })
-  ).toBe('Made with love in Belgium by Blazingly.io');
+  ).toEqual({ value: 'Made with love in Belgium by Blazingly.io', isTranslated: true });
 
   expect(
     translatorInstance.translate({
       key: 'footer',
       language: 'nl',
     })
-  ).toBe('Made with love in Belgium by Blazingly.io');
+  ).toEqual({ value: 'Made with love in Belgium by Blazingly.io', isTranslated: false });
 
   translatorInstance.addLanguage('nl', {
     footer: 'Ontwikkeld in Belgie door Blazingly.io',
@@ -76,7 +76,7 @@ test('Add languages manually test', () => {
       key: 'footer',
       language: 'nl',
     })
-  ).toBe('Ontwikkeld in Belgie door Blazingly.io');
+  ).toEqual({ value: 'Ontwikkeld in Belgie door Blazingly.io', isTranslated: true });
 });
 
 test('Nested translations', () => {
@@ -105,7 +105,7 @@ test('Nested translations', () => {
         name: 'Bob',
       },
     })
-  ).toBe('Welcome Bob to translator, press the big red button to get started');
+  ).toEqual({ value: 'Welcome Bob to translator, press the big red button to get started', isTranslated: true });
 
   expect(
     translatorInstance.translate({
@@ -115,5 +115,5 @@ test('Nested translations', () => {
         name: 'Bob',
       },
     })
-  ).toBe('Welkom Bob op de translator app, druk op de grote rode knop om te starten');
+  ).toEqual({ value: 'Welkom Bob op de translator app, druk op de grote rode knop om te starten', isTranslated: true });
 });
