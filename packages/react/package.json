@@ -1,13 +1,13 @@
 {
   "name": "@translator/react",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "compile": "tsc"
   },
   "dependencies": {
-    "@translator/core": "^1.0.0"
+    "@translator/core": "^0.0.1"
   },
   "devDependencies": {
     "@testing-library/react": "^11.0.2",
