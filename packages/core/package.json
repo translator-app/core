@@ -1,10 +1,10 @@
 {
   "name": "@translator-app/core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./lib/index.js",
   "license": "MIT",
   "scripts": {
     "compile": "tsc"
   },
-  "gitHead": "10bcd14b4f93c0db5792a267d879735901b82324"
+  "gitHead": "dbc3935f4f332188ebabd1d1b4631aebf65862ac"
 }

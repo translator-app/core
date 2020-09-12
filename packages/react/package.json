@@ -1,13 +1,13 @@
 {
   "name": "@translator-app/react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "compile": "tsc"
   },
   "dependencies": {
-    "@translator-app/core": "^0.0.2"
+    "@translator-app/core": "^0.0.3"
   },
   "devDependencies": {
     "@testing-library/react": "^11.0.2",
@@ -15,5 +15,5 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
-  "gitHead": "10bcd14b4f93c0db5792a267d879735901b82324"
+  "gitHead": "dbc3935f4f332188ebabd1d1b4631aebf65862ac"
 }
