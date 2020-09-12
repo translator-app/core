@@ -48,7 +48,7 @@ export function translator(opts: TranslatorOptions): TranslatorInstance {
       registry = library[fallbackLanguage];
     }
 
-    if (registry) {
+    if (registry && typeof registry[key] === 'string') {
       return {
         value: format(registry[key], values),
         isTranslated,
@@ -56,7 +56,7 @@ export function translator(opts: TranslatorOptions): TranslatorInstance {
     }
 
     return {
-      value: key,
+      value: key || '',
       isTranslated: false,
     };
   };
