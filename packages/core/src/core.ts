@@ -43,12 +43,12 @@ export function translator(opts: TranslatorOptions): TranslatorInstance {
 
   const translate = ({ key, values = {}, language = fallbackLanguage }) => {
     let registry = library[language];
-    let isTranslated = !!registry;
+    let isTranslated = !!(registry && typeof registry[key] === 'string');
     if (!isTranslated) {
       registry = library[fallbackLanguage];
     }
 
-    if (registry && typeof registry[key] === 'string') {
+    if (registry) {
       return {
         value: format(registry[key], values),
         isTranslated,

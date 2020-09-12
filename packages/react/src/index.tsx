@@ -4,18 +4,18 @@ import { translator, RawTranslationLibrary, RawTranslationRegistry } from '@tran
 type ProviderProps = {
   children: React.ReactNode;
   language: string;
-  fallbackLanguage: string;
-  library: RawTranslationLibrary;
-  getTranslationRegistry: (language: string) => RawTranslationRegistry;
+  fallbackLanguage?: string;
+  library?: RawTranslationLibrary;
+  getTranslationRegistry?: (language: string) => Promise<RawTranslationRegistry> | RawTranslationRegistry;
 };
 
 type ProviderValue = {
   language: string;
-  registryVersion: number;
-  getTranslation: (key: string, data?: any) => string;
+  version: number;
+  translate: (key: string, data?: any) => string;
 };
 
-const TranslatorContext = React.createContext({} as ProviderValue);
+const TranslatorContext = React.createContext<ProviderValue>({} as ProviderValue);
 
 function versionReducer(state, action) {
   switch (action.type) {
@@ -26,11 +26,11 @@ function versionReducer(state, action) {
   }
 }
 
-export function LanguageProvider(props: ProviderProps) {
+export function TranslatorProvider(props: ProviderProps) {
   let { children, library, language, fallbackLanguage, getTranslationRegistry } = props;
   let [translatorInstance] = React.useState(() => {
     return translator({
-      fallbackLanguage,
+      fallbackLanguage: fallbackLanguage || language,
       library,
     });
   });
@@ -38,13 +38,17 @@ export function LanguageProvider(props: ProviderProps) {
 
   React.useEffect(() => {
     if (!translatorInstance.hasLanguage(language)) {
-      const fetchTranslations = async () => {
-        let translationRegistry = await getTranslationRegistry(language);
-        translatorInstance.addLanguage(language, translationRegistry);
+      let result = getTranslationRegistry(language);
+      const update = (newRegistry) => {
+        translatorInstance.addLanguage(language, newRegistry);
         dispatchVersionChange({ type: 'increment' });
       };
-
-      fetchTranslations();
+      
+      if (result instanceof Promise) {
+        result.then(update);
+      } else {
+        update(result);
+      }
     }
   }, [language]);
 
@@ -55,12 +59,12 @@ export function LanguageProvider(props: ProviderProps) {
 
   let providerValues = {
     language,
-    getTranslation,
-    registryVersion: registryVersion.version,
+    translate: getTranslation,
+    version: registryVersion.version,
   };
 
   return <TranslatorContext.Provider value={providerValues}>{children}</TranslatorContext.Provider>;
 }
 
-export const useLanguage = React.useContext(TranslatorContext);
-export const Consumer = TranslatorContext.Consumer;
+export const useTranslator = () => React.useContext(TranslatorContext);
+export const TranslatorConsumer = TranslatorContext.Consumer;
