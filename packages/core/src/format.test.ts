@@ -46,3 +46,8 @@ test('Array arguments at the start of strings are replaced', () => {
   let result = format('{0} people have liked this', [123]);
   expect(result).toBe('123 people have liked this');
 });
+
+test('Should return empty string if template is undefined', () => {
+  let result = format(undefined, [123]);
+  expect(result).toBe('');
+});
