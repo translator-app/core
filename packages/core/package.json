@@ -1,6 +1,6 @@
 {
   "name": "@translator/core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./lib/index.js",
   "license": "MIT",
   "publishConfig": {
@@ -9,5 +9,5 @@
   "scripts": {
     "compile": "tsc"
   },
-  "gitHead": "f7e9728b942ca2881eb4e82e0c72aa074d42b638"
+  "gitHead": "bfaa7ed3c6050da54cfad79d5b6f0755632f2728"
 }
