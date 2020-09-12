@@ -1,6 +1,6 @@
 {
   "name": "@translator-app/react",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "./lib/index.js",
   "license": "MIT",
   "publishConfig": {
@@ -10,7 +10,7 @@
     "compile": "tsc"
   },
   "dependencies": {
-    "@translator-app/core": "^0.0.9"
+    "@translator-app/core": "^0.0.10"
   },
   "devDependencies": {
     "@testing-library/react": "^11.0.2",
