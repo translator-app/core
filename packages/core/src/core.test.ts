@@ -117,3 +117,37 @@ test('Nested translations', () => {
     })
   ).toEqual({ value: 'Welkom Bob op de translator app, druk op de grote rode knop om te starten', isTranslated: true });
 });
+
+test('Should return key for unknown key', () => {
+  let library = {
+    en: {
+      welcome: 'Welcome {name} to translator, press the big red button to get started',
+    },
+    nl: {
+      welcome: 'Welkom {name} op de translator app, druk op de grote rode knop om te starten',
+    },
+  };
+
+  let translatorInstance = translator({
+    fallbackLanguage: 'en',
+    library,
+  });
+
+  expect(
+    translatorInstance.translate({
+      key: 'does-not-exist',
+      values: {
+        name: 'Bob',
+      },
+    })
+  ).toEqual({ value: 'does-not-exist', isTranslated: false });
+
+  expect(
+    translatorInstance.translate({
+      key: undefined,
+      values: {
+        name: 'Bob',
+      },
+    })
+  ).toEqual({ value: '', isTranslated: false });
+});
