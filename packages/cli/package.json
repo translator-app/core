@@ -1,7 +1,10 @@
 {
   "name": "@translator-app/cli",
   "version": "0.1.0",
-  "main": "./lib/index.js",
+  "main": "./lib/bin.js",
+  "bin": {
+    "translator": "./lib/bin.js"
+  },
   "license": "MIT",
   "publishConfig": {
     "access": "public"
